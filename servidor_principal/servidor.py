@@ -5,12 +5,8 @@ import threading
 
 lista=[]
 class Client(Thread):
-    """
-    Servidor eco - reenvía todo lo recibido.
-    """
     
     def __init__(self, conn, addr):
-        # Inicializar clase padre.
         Thread.__init__(self)
         
         self.conn = conn
@@ -31,12 +27,9 @@ class Client(Thread):
                     self.conn.send(input_data)
             print(lista)
 class Servidor(Thread):
-    """
-    Servidor eco - reenvía todo lo recibido.
-    """
+ 
     
     def __init__(self, conn, addr):
-        # Inicializar clase padre.
         Thread.__init__(self)
         
         self.conn = conn
@@ -69,7 +62,7 @@ def cliente():
         print("%s:%d se ha conectado al servidor de clientes." % addr)
 def servidor():
     s = socket()
-    # Escuchar peticiones en el puerto 6030.
+    # Escuchar peticiones en el puerto 6031.
     s.bind(("localhost", 6031))
     s.listen(0)
     
