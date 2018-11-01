@@ -16,10 +16,7 @@ def main():
                 s.send(output_data)
             except TypeError:
                 s.send(bytes(output_data, "utf-8"))
-<<<<<<< HEAD
-            
-=======
->>>>>>> 4178731a7610b26cefce58109cd1ece5f353bcaa
+
             input_data = s.recv(1024)
             if input_data:
                
