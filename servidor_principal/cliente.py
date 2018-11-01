@@ -16,12 +16,8 @@ def main():
                 s.send(output_data)
             except TypeError:
                 s.send(bytes(output_data, "utf-8"))
-            
-           a.
             input_data = s.recv(1024)
             if input_data:
-                
-                print(input_data.decode("utf-8") if
-                      isinstance(input_data, bytes) else input_data)
+                print input_data
 if __name__ == "__main__":
     main()
