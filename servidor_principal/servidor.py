@@ -19,13 +19,13 @@ class Client(Thread):
                 input_data = self.conn.recv(1024)
                 lista.append(input_data)
             except error:
-                print("[%s] Error de lectura." % self.name)
+                print "[%s] Error de lectura." % self.name
                 break
             else:
-                # Reenviar la información recibida.
+                # Reenviar la informacion recibida.
                 if input_data:
                     self.conn.send(input_data)
-            print(lista)
+            print lista
 class Servidor(Thread):
  
     
@@ -41,10 +41,10 @@ class Servidor(Thread):
                 # Recibir datos del cliente.
                 input_data = self.conn.recv(1024)
             except error:
-                print("[%s] Error de lectura." % self.name)
+                print "[%s] Error de lectura." % self.name
                 break
             else:
-                # Reenviar la información recibida.
+                # Reenviar la informacion recibida.
                 if input_data:
                     self.conn.send(input_data)
             
@@ -59,7 +59,7 @@ def cliente():
         conn, addr = s.accept()
         c = Client(conn, addr)
         c.start()
-        print("%s:%d se ha conectado al servidor de clientes." % addr)
+        print "%s:%d se ha conectado al servidor de clientes." % addr
 def servidor():
     s = socket()
     # Escuchar peticiones en el puerto 6031.
@@ -70,7 +70,7 @@ def servidor():
         conn, addr = s.accept()
         c = Servidor(conn, addr)
         c.start()
-        print("%s:%d se ha conectado al servidor de miniservidores." % addr)
+        print "%s:%d se ha conectado al servidor de miniservidores." % addr
        
 if __name__ == "__main__":
     hilo_cliente = threading.Thread(target=cliente)
