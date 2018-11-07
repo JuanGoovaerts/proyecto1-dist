@@ -32,19 +32,19 @@ def client_res(cpu, ram):
                 return [servers[ser]['host'], ser]
 
 servers =   {
-  "ser1": {"host": 'localhost:6031', "libre": 1, "ram": 500, "cpu": 1500  },
+  "ser1": {"host": 'localhost:9093', "libre": 1, "ram": 500, "cpu": 1500  },
   "ser2": {"host": 'localhost:9092', "libre": 1, "ram": 1000, "cpu": 2000  },
 }
 
 lista=[]
 class Client(Thread):
-    
+
     def __init__(self, conn, addr):
         Thread.__init__(self)
-        
+
         self.conn = conn
         self.addr = addr
-        
+
     def run(self):
         while True:
             try:
@@ -58,9 +58,7 @@ class Client(Thread):
                 response = client_res(cpu, ram)
                 host = response[0]
                 nombre_server = response[1]
-                print response[0]
-                print response[1]
-                print tiempo
+                print "Voy a usar ", response[0], " nombre: ", response[1]
                 server_sol(nombre_server, 0)
                 #ahora me conector al servidor
                 respuesta=sock(host,tiempo)
@@ -76,14 +74,14 @@ class Client(Thread):
                 break
            # print lista
 class Servidor(Thread):
- 
-    
+
+
     def __init__(self, conn, addr):
         Thread.__init__(self)
-        
+
         self.conn = conn
         self.addr = addr
-        
+
     def run(self):
         while True:
             try:
@@ -104,14 +102,14 @@ class Servidor(Thread):
                 # Reenviar la informacion recibida.
                 if input_data:
                     self.conn.send(input_data)
-            
-            
+
+
 def cliente():
     s = socket.socket()
     # Escuchar peticiones en el puerto 6030.
     s.bind(("localhost", 6030))
     s.listen(0)
-    
+
     while True:
         conn, addr = s.accept()
         c = Client(conn, addr)
@@ -122,18 +120,15 @@ def servidor():
     # Escuchar peticiones en el puerto 6031.
     s.bind(("localhost", 6031))
     s.listen(0)
-    
+
     while True:
         conn, addr = s.accept()
         c = Servidor(conn, addr)
         c.start()
         print "%s:%d se ha conectado al servidor de miniservidores." % addr
-       
+
 if __name__ == "__main__":
     hilo_cliente = threading.Thread(target=cliente)
     hilo_servidor = threading.Thread(target=servidor)
     hilo_cliente.start()
     hilo_servidor.start()
-    
-
-    
