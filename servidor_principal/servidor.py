@@ -8,8 +8,8 @@ def sock(ip,tiempo):
     conexion=ip.split(':')
     direccion=conexion[0]
     puerto=int(conexion[1])
-    cadena=tiempo
-    print direccion,":",puerto
+    cadena=str(tiempo)
+    print direccion,":",puerto,",","tiempo",":",cadena
     s = socket.socket()
     s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
     s.connect((direccion,puerto))
@@ -60,6 +60,7 @@ class Client(Thread):
                 nombre_server = response[1]
                 print response[0]
                 print response[1]
+                print tiempo
                 server_sol(nombre_server, 0)
                 #ahora me conector al servidor
                 respuesta=sock(host,tiempo)
