@@ -1,5 +1,7 @@
 
 from socket import socket
+
+nombre_ser = "ser1"
 try:
     raw_input
 except NameError:
