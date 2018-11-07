@@ -1,7 +1,25 @@
 from socket import socket, error
 from threading import Thread
 import threading
+import socket
 
+def sock(ip,tiempo):
+    # array con  ip y puerto
+    conexion=ip.split(':')
+    direccion=conexion[0]
+    puerto=int(conexion[1])
+    cadena=tiempo
+    print direccion,":",puerto
+    s = socket.socket()
+    s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+    s.connect((direccion,puerto))
+    s.send(cadena)
+    recibido = s.recv(1024)
+    print "---------------------------------"
+    print "reaultado recibido del  servidor = " ,recibido
+    print "---------------------------------"
+    s.close()
+    return recibido
 
 def server_sol(nombre, estado):
     servers[nombre]['libre'] = estado;
@@ -15,7 +33,7 @@ def client_res(cpu, ram):
 
 servers =   {
   "ser1": {"host": 'localhost:6031', "libre": 1, "ram": 500, "cpu": 1500  },
-  "ser2": {"host": '196.203.201:4000', "libre": 1, "ram": 1000, "cpu": 2000  },
+  "ser2": {"host": 'localhost:9092', "libre": 1, "ram": 1000, "cpu": 2000  },
 }
 
 lista=[]
@@ -44,12 +62,13 @@ class Client(Thread):
                 print response[1]
                 server_sol(nombre_server, 0)
                 #ahora me conector al servidor
+                respuesta=sock(host,tiempo)
 
                 #una vez tengo la respuesta
-                #server_sol(nombre_server, 1)
+                server_sol(nombre_server, 1)
 
 
-                self.conn.send(response[0])
+                self.conn.send(respuesta)
             except error:
                 print "[%s] Error de lectura." % self.name
                 self.conn.send('error')
@@ -87,7 +106,7 @@ class Servidor(Thread):
             
             
 def cliente():
-    s = socket()
+    s = socket.socket()
     # Escuchar peticiones en el puerto 6030.
     s.bind(("localhost", 6030))
     s.listen(0)
@@ -98,7 +117,7 @@ def cliente():
         c.start()
         print "%s:%d se ha conectado al servidor de clientes." % addr
 def servidor():
-    s = socket()
+    s = socket.socket()
     # Escuchar peticiones en el puerto 6031.
     s.bind(("localhost", 6031))
     s.listen(0)
