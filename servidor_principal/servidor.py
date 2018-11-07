@@ -7,9 +7,11 @@ def server_sol(nombre, estado):
     servers[nombre]['libre'] = estado;
 
 def client_res(cpu, ram):
-    for ser in servers:
-        if(servers[ser]['libre'] and servers[ser]['ram'] >= ram and  servers[ser]['cpu'] >= cpu):
-            return servers[ser]['host']
+    while True:
+        for ser in servers:
+            if(servers[ser]['libre'] and servers[ser]['ram'] >= ram and  servers[ser]['cpu'] >= cpu):
+                print servers[ser]
+                return servers[ser]['host']
 
 servers =   {
   "ser1": {"host": '196.203.201:3000', "libre": 1, "ram": 500, "cpu": 1500  },
