@@ -5,7 +5,7 @@ import math
 import time
 
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-s.bind(('', 9092))
+s.bind(('', 9097))
 s.listen(10)
 
 def conecOP(sc,addr):

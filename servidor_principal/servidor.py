@@ -16,8 +16,9 @@ def sock(ip,tiempo):
     s.send(cadena)
     recibido = s.recv(1024)
     print "---------------------------------"
-    print "reaultado recibido del  servidor = " ,recibido
+    print "resultado recibido del  servidor = " ,recibido
     print "---------------------------------"
+    print ""
     s.close()
     return recibido
 
@@ -32,8 +33,13 @@ def client_res(cpu, ram):
                 return [servers[ser]['host'], ser]
 
 servers =   {
-  "ser1": {"host": 'localhost:9093', "libre": 1, "ram": 500, "cpu": 1500  },
+  "ser1": {"host": 'localhost:9091', "libre": 1, "ram": 500, "cpu": 500  },
   "ser2": {"host": 'localhost:9092', "libre": 1, "ram": 1000, "cpu": 2000  },
+  "ser3": {"host": 'localhost:9093', "libre": 1, "ram": 1500, "cpu": 500  },
+  "ser4": {"host": 'localhost:9094', "libre": 1, "ram": 2000, "cpu": 1000  },
+  "ser5": {"host": 'localhost:9095', "libre": 1, "ram": 3000, "cpu": 800  },
+  "ser6": {"host": 'localhost:9096', "libre": 1, "ram": 500, "cpu": 1000  },
+  "ser7": {"host": 'localhost:9097', "libre": 1, "ram": 3500, "cpu": 2000  },
 }
 
 lista=[]
@@ -105,18 +111,20 @@ class Servidor(Thread):
 
 
 def cliente():
-    s = socket.socket()
+    s = socket.socket()    
     # Escuchar peticiones en el puerto 6030.
     s.bind(("localhost", 6030))
     s.listen(0)
-
+    
     while True:
         conn, addr = s.accept()
         c = Client(conn, addr)
         c.start()
         print "%s:%d se ha conectado al servidor de clientes." % addr
+
+    
 def servidor():
-    s = socket.socket()
+    s = socket.socket()    
     # Escuchar peticiones en el puerto 6031.
     s.bind(("localhost", 6031))
     s.listen(0)
